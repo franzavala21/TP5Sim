@@ -1,7 +1,7 @@
 import copy
 import random
 import math
-
+# esto es un comentario
 # Falta agregar el t acum de sistema al fin de maquina y paciencia
 
 from Fila import *
