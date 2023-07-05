@@ -142,9 +142,9 @@ def proxima_fila(fila_anterior):
 
     hora_minima = 500000000
     i = 0
-    siguiente_evento = 8
+    siguiente_evento = 11
     for hora in (fa.h_ll, fa.h_atenc_encuesta, fa.h_atenc_ant, fa.h_atenc_inm_1, fa.h_atenc_inm_2, fa.h_atenc_maq,
-                 primero_cola_inm, segundo_cola_inm):
+                 primero_cola_inm, segundo_cola_inm, fa.h_prox_detencion, fa.h_fin_detencion_ll,fa.h_fin_detencion_vent ):
         if hora != None:
             if hora < hora_minima:
                 hora_minima = hora
@@ -153,7 +153,7 @@ def proxima_fila(fila_anterior):
 
 
 
-    if siguiente_evento == 8:
+    if siguiente_evento == 11:
         print("Fin")
 
 
@@ -213,6 +213,24 @@ def proxima_fila(fila_anterior):
 
         fila.promedio_t_sistema = fila.t_acum_sistema / fila.cantidad_salieron
         fila.evento = "fin paciencia"
+
+    elif siguiente_evento == 8:
+        print("Detencion")
+        # if detencion llegada:
+
+        # if detencion ventanilla
+        # si esta atendiendo, a la hora de fin atencion le sumas la el tiempo de detencion
+        # Cambiar estado de ventanilla a Detenido
+
+
+    elif siguiente_evento == 9:
+        print("Fin Detencion Llegada")
+
+    elif siguiente_evento == 10:
+        print("Fin Detencion Vantanilla")
+        # Cambiar estado de ventanilla a Libre o Ocupado
+
+
 
     fila.porcentaje_encuesta = fila.cantidad_encuesta * 100 / fila.cant_entraron
     if fila.cantidad_salieron == 0:
@@ -312,7 +330,11 @@ def llegada(fila_anterior):
             fila.tipo = "Ant norm"
         fila.cola_ant.append([None, fila.tipo, fila.reloj])
 
-        if fila.est_encuesta == "Libre":
+        if fila.estado_ll == "Detenido":
+            pass
+            # Van a una cola
+
+        elif fila.est_encuesta == "Libre":
 
             fila.est_encuesta = "Atendiendo"
             fila.cola_ant[-1][0] = "E"
