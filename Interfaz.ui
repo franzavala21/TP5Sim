@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1799</width>
+    <height>923</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTableWidget" name="tabla">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>1771</width>
+      <height>721</height>
+     </rect>
+    </property>
+    <property name="columnCount">
+     <number>46</number>
+    </property>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>170</number>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Reloj</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Evento</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>RND LL</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tiempo LL</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Hora LL</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>RND Tipo</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tipo</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Estado Encuesta</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>RND tiempo Encuesta</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tiempo Encuesta</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Hora Encuesta</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Estado Vent Inm 1</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Estado Vent Inm 2</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>RND Tiempo Inm</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tiempo Inm</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Hora Inm 1</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Hora Inm 2</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Est Maquina</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>RND Tiempo Maquina</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tiempo Maquina</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Hora Maquina</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Estado Vent Ant</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>RND Tiempo Ant</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tiempo Ant</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Hora Ant</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cantidad Ant</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cantidad Inm</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cant fin paciencia</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Porc fin paciencia</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cant encuesta</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Porc encuesta</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>T acum sistema</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Prom t sistema</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cant entraron</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Cant salieron</string>
+     </property>
+    </column>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+   </widget>
+   <widget class="QPushButton" name="boton_simular">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>110</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Realizar simulación</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="cant_dias">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>30</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>20</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Cantidad de dias:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>60</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Mostrar desde:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="mostrar_desde">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>70</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="porc_encuesta">
+    <property name="geometry">
+     <rect>
+      <x>1640</x>
+      <y>110</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="cant_no_atend">
+    <property name="geometry">
+     <rect>
+      <x>1640</x>
+      <y>20</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>1340</x>
+      <y>10</y>
+      <width>261</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Cantidad de personas no atendidas</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="prom_t_cola">
+    <property name="geometry">
+     <rect>
+      <x>1640</x>
+      <y>150</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>1340</x>
+      <y>140</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Tiempo promedio en sistema</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>1340</x>
+      <y>100</y>
+      <width>291</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Porcentaje de personas encuestadas</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="porc_no_atend">
+    <property name="geometry">
+     <rect>
+      <x>1640</x>
+      <y>60</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>1340</x>
+      <y>50</y>
+      <width>291</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Porcentaje de personas no antendidas</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>374</x>
+      <y>20</y>
+      <width>331</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Lamda atencion vent interprovincial</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lambda_inter">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>20</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1.5</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>374</x>
+      <y>50</y>
+      <width>291</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Lamda atencion vent cercania</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lambda_cerc">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>50</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0.75</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>100</y>
+      <width>291</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Lamda atencion maquina</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>374</x>
+      <y>80</y>
+      <width>291</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Lamda atencion anticipada</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lambda_maq">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>110</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lambda_ant">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>80</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>2.4</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="uniforme_min">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>70</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>40</y>
+      <width>291</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Lamda llegada critica</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lambda_critica">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>40</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1.6</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>70</y>
+      <width>331</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Uniforme min / max llegada moderada</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="uniforme_max">
+    <property name="geometry">
+     <rect>
+      <x>1210</x>
+      <y>70</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>110</y>
+      <width>331</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Uniforme min / max atencion encuesta</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="uniforme_min_enc">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>110</y>
+      <width>41</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="uniforme_max_enc">
+    <property name="geometry">
+     <rect>
+      <x>1210</x>
+      <y>110</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>140</y>
+      <width>191</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Mostrar acumulado</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
