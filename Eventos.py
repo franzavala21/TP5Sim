@@ -172,14 +172,14 @@ def proxima_fila(fila_anterior):
 
 
     if siguiente_evento == 0:
-        if fila.est_ll == 'Detenido':
+        if fila_anterior.est_ll == 'Detenido':
             fila = llegada_detenida(fila_anterior)
         else:
             
             fila = llegada(fila_anterior)
             fila.cant_entraron += 1
             
-        if cantidad_llegadas == 150:
+
 
         fila = llegada(fila_anterior)
         fila.cant_entraron += 1
@@ -775,7 +775,7 @@ def fin_detencion_atencion(fila_anterior):
                     pos = i
 
 
-                    fila = copy.deepcopy(inicio_atencionn_ant(fila, pos))
+                    fila = copy.deepcopy(inicio_atencion_ant(fila, pos))
                     fila.est_vent_ant = "Ocupado"
                     fila.cola_ant[pos][0] = 'SA'
                     break
