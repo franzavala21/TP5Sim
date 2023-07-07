@@ -170,10 +170,13 @@ def proxima_fila(fila_anterior):
 
 
     if siguiente_evento == 0:
-
-        fila = llegada(fila_anterior)
-        fila.cant_entraron += 1
-        cantidad_llegadas += 1
+        if fila.est_ll == 'Detenido':
+            fila = llegada_detenida(fila_anterior)
+        else:
+            
+            fila = llegada(fila_anterior)
+            fila.cant_entraron += 1
+            cantidad_llegadas += 1
         if cantidad_llegadas == 150:
             beta = random.random()
 
@@ -238,8 +241,13 @@ def proxima_fila(fila_anterior):
         fila.rnd_tipo_detencion = random.random()
 
         if fila.rnd_tipo_detencion < 35:
-            # DETENCION LLEGADA
-            pass
+            fila.est_ll = "Detenido"
+            fila.h_prox_detencion = None
+            tiempo_real, vector_rk2 = runge_kutta_2(0.1,0.1)
+            fila.h_fin_detencion_ll = tiempo_real + fila.reloj
+
+
+            
 
         else:
 
@@ -332,12 +340,14 @@ def llegada(fila_anterior):
     fila.rnd_tipo = random.random()
     # Llegada inmediata
     if fila.rnd_tipo < 0.75:
-
+        
         fila.tipo = "Interp"
         if fila.rnd_tipo < 0.5:
             fila.tipo = "Cerc"
+            
         fila.cola_inm.append([None, fila.tipo, None, fila.reloj])
-
+        
+        
 
         if fila.est_encuesta == "Libre":
             fila.est_encuesta = "Atendiendo"
@@ -357,11 +367,7 @@ def llegada(fila_anterior):
             fila.tipo = "Ant norm"
         fila.cola_ant.append([None, fila.tipo, fila.reloj])
 
-        if fila.est_ll == "Detenido":
-            pass
-            # Van a una cola
-
-        elif fila.est_encuesta == "Libre":
+        if fila.est_encuesta == "Libre":
 
             fila.est_encuesta = "Atendiendo"
             fila.cola_ant[-1][0] = "E"
@@ -398,7 +404,6 @@ def fin_atencion_encuesta(fila_anterior):
     return fila
 
 
-# ESTO LO HACE FRAN
 def fin_atencion_anticipada(fila_anterior):
     fila = copy.deepcopy(fila_anterior)
     fila.reloj = fila_anterior.h_atenc_ant
@@ -535,7 +540,6 @@ def fin_atencion_inmediata_2(fila_anterior):
         return fila
 
 
-# ESTO LO HACE VALE
 def fin_atencion_maquina(fila_anterior):
     fila = copy.deepcopy(fila_anterior)
 
