@@ -2,6 +2,7 @@ import copy
 import random
 import math
 from Rugen_Kutta import *
+from Detenciones import *
 # esto es un comentario
 # Falta agregar el t acum de sistema al fin de maquina y paciencia
 
@@ -25,6 +26,11 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
     uniforme_min2 = uniforme_min_enc
     global uniforme_max2
     uniforme_max2 = uniforme_max_enc
+    global vector_rk1
+    global vector_rk2
+    global vector_rk3
+    global t_rk1
+    t_rk1 = 1
 
     tiempo_rk1, vector_rk1 = runge_kutta_1(0.2,50, 0.1)
     tiempo_rk2, vector_rk2 = runge_kutta_2(30, 0.1)
@@ -58,7 +64,7 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
         vec_filas += (fila_inicial,)
 
         while fila.reloj < 1440 or(len(fila.cola_ant) > 0 or len(fila.cola_inm) > 0):
-        #for k in range(3000): # *****************************************************************************CAMBIAAAAAAAAAAAARR *********
+
             fila = copy.deepcopy(proxima_fila(fila_anterior))
 
 
@@ -119,6 +125,7 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
 
 def proxima_fila(fila_anterior):
     fa = fila_anterior
+    cantidad_llegadas = 0
 
     # Cargo los tiempos dellegada a la fila de
     primero_cola_inm = 499999999
@@ -147,7 +154,7 @@ def proxima_fila(fila_anterior):
     i = 0
     siguiente_evento = 11
     for hora in (fa.h_ll, fa.h_atenc_encuesta, fa.h_atenc_ant, fa.h_atenc_inm_1, fa.h_atenc_inm_2, fa.h_atenc_maq,
-                 primero_cola_inm, segundo_cola_inm, fa.h_prox_detencion, fa.h_fin_detencion_ll,fa.h_fin_detencion_vent ):
+                 primero_cola_inm, segundo_cola_inm, fa.h_prox_detencion, fa.h_fin_detencion_ll,fa.h_fin_detencion_vent):
         if hora != None:
             if hora < hora_minima:
                 hora_minima = hora
@@ -164,6 +171,12 @@ def proxima_fila(fila_anterior):
 
         fila = llegada(fila_anterior)
         fila.cant_entraron += 1
+        cantidad_llegadas += 1
+        if cantidad_llegadas == 150:
+            beta = random.random()
+            global t_rk1
+            t_rk1, vector_rk1 = runge_kutta_1(beta,fila.reloj,0.1)
+            fila.h_prox_detencion = copy.copy(fila.reloj + t_rk1)
 
 
     elif siguiente_evento == 1:
@@ -218,15 +231,24 @@ def proxima_fila(fila_anterior):
         fila.evento = "fin paciencia"
 
     elif siguiente_evento == 8:
-        print("Detencion")
-        # if detencion llegada:
+        fila = copy.deepcopy(fila_anterior)
+        fila.reloj = fila_anterior.h_prox_detencion
+        fila.rnd_tipo_detencion = random.random()
 
-        # if detencion ventanilla
-        # si esta atendiendo, a la hora de fin atencion le sumas la el tiempo de detencion
-        # Cambiar estado de ventanilla a Detenido
+        if fila.rnd_tipo_detencion < 35:
+            # DETENCION LLEGADA
+            pass
+
+        else:
+
+            fila, vector_rk3 = detener_atencion(fila_anterior)
+            print("Detencion")
+
 
 
     elif siguiente_evento == 9:
+        fila = fin_detencion_atencion(fila_anterior)
+        fila.h_prox_detencion = copy.copy(fila.reloj + t_rk1)
         print("Fin Detencion Llegada")
 
     elif siguiente_evento == 10:
@@ -395,11 +417,9 @@ def fin_atencion_anticipada(fila_anterior):
                 #tipo_atencion = fila.cola_ant[i][1]
                 pos = i
                 fila = inicio_atencion_ant(fila, pos)
+                fila.cola_ant[pos][0] = 'SA'
                 break
-        
-        
-        fila.cola_ant[pos][0] = 'SA'
-        
+
     else:
         fila.est_vent_ant = 'Libre'
 
