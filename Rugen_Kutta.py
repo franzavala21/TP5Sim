@@ -14,7 +14,7 @@ def cargar_r_k(vec,h,beta,  numero_funcion):
         return sol
 
     vec[0] += h
-    vec[1] = vec[12]
+    vec[1] = copy.copy(vec[12])
 
     x = vec[0]
     y = vec[1]
@@ -44,20 +44,27 @@ def runge_kutta_1(beta, a, h):
 
 def runge_kutta_2(t_0, h):
     fila = [0,0,0,0,0,0,0,0,0,0,0,0,0]
-    fila[0] = - h
+    fila[0] = 0
     fila[12] = t_0
     vec_rk = []
     beta = 0
     fila_nueva = copy.deepcopy(fila)
-    fila_nueva =
+
     while True:
 
-        if fila
         fila = copy.deepcopy(fila_nueva)
-        fila_nueva = copy.deepcopy(cargar_r_k(fila,h,beta,  1))
+
+        fila_nueva = copy.deepcopy(cargar_r_k(copy.deepcopy(fila),h,beta,  2))
         vec_rk.append(fila)
+
+        print(fila_nueva)
+        if (abs(fila_nueva[1] - fila[1])) < 1:
+           break
 
     return vec_rk
 
-vector = runge_kutta_1(0.2, 50, 0.1)
-print(vector[-1])
+
+
+
+vector = runge_kutta_2(50, 0.1)
+
