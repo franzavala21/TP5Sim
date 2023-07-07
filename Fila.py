@@ -49,7 +49,7 @@ class Fila():
         self.tipo_detencion = tipo_detencion
         self.h_fin_detencion_ll = h_fin_detencion_ll
         self.h_fin_detencion_vent = h_fin_detencion_vent
-        self.cola_ll = cola_ll
+        self.cola_ll = cola_ll # cola de llegadas detenidas
         self.cola_ant = cola_ant  # [[est,tipo, h_ll], [est,tipo, h_ll] ,[est,tipo, h_ll]]
         self.cola_inm = cola_inm  # [[est, tipo, donde_se_esta_atiendiendo,h_ll],[est, tipo,donde_se_esta_atiendiendo,h_ll],
         # [est, tipo,donde_se_esta_atiendiendo,h_ll]]

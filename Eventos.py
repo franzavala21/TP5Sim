@@ -172,6 +172,14 @@ def proxima_fila(fila_anterior):
 
 
     if siguiente_evento == 0:
+        if fila.est_ll == 'Detenido':
+            fila = llegada_detenida(fila_anterior)
+        else:
+            
+            fila = llegada(fila_anterior)
+            fila.cant_entraron += 1
+            
+        if cantidad_llegadas == 150:
 
         fila = llegada(fila_anterior)
         fila.cant_entraron += 1
@@ -247,8 +255,13 @@ def proxima_fila(fila_anterior):
         fila.rnd_tipo_detencion = random.random()
 
         if fila.rnd_tipo_detencion < 0.01: # CAMBIAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-            # DETENCION LLEGADA
-            pass
+            fila.est_ll = "Detenido"
+            fila.h_prox_detencion = None
+            tiempo_real, vector_rk2 = runge_kutta_2(0.1,0.1)
+            fila.h_fin_detencion_ll = tiempo_real + fila.reloj
+
+
+            
 
         else:
 
@@ -344,12 +357,14 @@ def llegada(fila_anterior):
     fila.rnd_tipo = random.random()
     # Llegada inmediata
     if fila.rnd_tipo < 0.75:
-
+        
         fila.tipo = "Interp"
         if fila.rnd_tipo < 0.5:
             fila.tipo = "Cerc"
+            
         fila.cola_inm.append([None, fila.tipo, None, fila.reloj])
-
+        
+        
 
         if fila.est_encuesta == "Libre":
             fila.est_encuesta = "Atendiendo"
@@ -369,11 +384,7 @@ def llegada(fila_anterior):
             fila.tipo = "Ant norm"
         fila.cola_ant.append([None, fila.tipo, fila.reloj])
 
-        if fila.est_ll == "Detenido":
-            pass
-            # Van a una cola
-
-        elif fila.est_encuesta == "Libre":
+        if fila.est_encuesta == "Libre":
 
             fila.est_encuesta = "Atendiendo"
             fila.cola_ant[-1][0] = "E"
@@ -430,8 +441,7 @@ def fin_atencion_anticipada(fila_anterior):
                 fila.cantidad_ant -= 1
                 #tipo_atencion = fila.cola_ant[i][1]
                 pos = i
-
-                fila = inicio_atencionn_ant(fila, pos)
+                fila = inicio_atencion_ant(fila, pos)
                 fila.cola_ant[pos][0] = 'SA'
                 break
 
@@ -694,8 +704,7 @@ def inicio_atencion_maquina(pos_cola, fila):
     fila.h_atenc_maq = fila.reloj + fila.t_atenc_maq
     return fila
 
-def inicio_atencionn_ant(fila, pos_fila):
-
+def inicio_atencion_ant(fila, pos_fila):
     fila.cola_inm = copy.copy(fila.cola_inm)
     fila.cola_ant = copy.copy(fila.cola_ant)
     fila.rnd_t_antenc_ant, fila.t_atenc_ant = gen_exponencial(lambda_ant1)
@@ -742,7 +751,7 @@ def atender_ant_o_cola(fila, pos_cola):
     if fila.est_vent_ant == "Libre":
         fila.est_vent_ant = "Atendiendo"
         fila.cola_ant[pos_cola][0] = "SA"
-        fila = inicio_atencionn_ant(fila, pos_cola)
+        fila = inicio_atencion_ant(fila, pos_cola)
 
     else:
         fila.cola_ant[pos_cola][0] = "C"
