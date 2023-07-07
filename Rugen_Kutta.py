@@ -14,6 +14,7 @@ def cargar_r_k(vec,h,beta,  numero_funcion):
         return sol
 
     vec[0] += h
+    vec[0] = round(vec[0],3)
     vec[1] = copy.copy(vec[12])
 
     x = vec[0]
@@ -39,8 +40,8 @@ def runge_kutta_1(beta, a, h):
     while fila[1] < 3*a:
         fila = copy.deepcopy(cargar_r_k(fila,h,beta,  1))
         vec_rk.append(fila)
-
-    return vec_rk
+    tiempo_real = vec_rk[-1][1] * 30
+    return tiempo_real, vec_rk
 
 def runge_kutta_2(t_0, h):
     fila = [0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -57,14 +58,24 @@ def runge_kutta_2(t_0, h):
         fila_nueva = copy.deepcopy(cargar_r_k(copy.deepcopy(fila),h,beta,  2))
         vec_rk.append(fila)
 
-        print(fila_nueva)
+
         if (abs(fila_nueva[1] - fila[1])) < 1:
            break
 
-    return vec_rk
+    tiempo_real = vec_rk[-1][1] * 27
+    return tiempo_real, vec_rk
 
 
+def runge_kutta_3(t_0, h):
+    fila = [0,0,0,0,0,0,0,0,0,0,0,0,0]
+    fila[0] = - h
+    fila[12] = t_0
+    vec_rk = []
+    beta = 0
+    while fila[1] < 1.5 * t_0:
+        fila = copy.deepcopy(cargar_r_k(fila,h,beta,  3))
+        vec_rk.append(fila)
 
-
-vector = runge_kutta_2(50, 0.1)
+    tiempo_real = vec_rk[-1][1] * 8
+    return tiempo_real, vec_rk
 

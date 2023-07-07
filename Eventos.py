@@ -1,6 +1,7 @@
 import copy
 import random
 import math
+from Rugen_Kutta import *
 # esto es un comentario
 # Falta agregar el t acum de sistema al fin de maquina y paciencia
 
@@ -25,7 +26,9 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
     global uniforme_max2
     uniforme_max2 = uniforme_max_enc
 
-
+    tiempo_rk1, vector_rk1 = runge_kutta_1(0.2,50, 0.1)
+    tiempo_rk2, vector_rk2 = runge_kutta_2(30, 0.1)
+    tiempo_rk3, vector_rk3 = runge_kutta_3(50, 0.1)
 
     vec_filas = ()
     cant_fin_paciencia = 0
@@ -109,7 +112,7 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
         vec_filas += (fila_a_agregar,)
 
 
-    return vec_filas, vec_estadisticas, largo_maximo_ant, largo_maximo_inm
+    return vec_filas, vec_estadisticas, largo_maximo_ant, largo_maximo_inm , vector_rk1, vector_rk2, vector_rk3
 
 
 
@@ -330,7 +333,7 @@ def llegada(fila_anterior):
             fila.tipo = "Ant norm"
         fila.cola_ant.append([None, fila.tipo, fila.reloj])
 
-        if fila.estado_ll == "Detenido":
+        if fila.est_ll == "Detenido":
             pass
             # Van a una cola
 

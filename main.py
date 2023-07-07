@@ -1,6 +1,10 @@
 import random
 from Fila import *
 from Eventos import *
+from ventana_RK1 import *
+from ventana_RK2 import *
+from ventana_RK3 import *
+
 
 from PyQt5 import uic, QtWidgets
 import sys
@@ -24,6 +28,10 @@ class MyApp(QtWidgets.QMainWindow, Ui_Dialog):
 
 
         self.boton_simular.clicked.connect(self.simular)
+        self.boton_RK1.clicked.connect(self.mostrar_RK1)
+        self.boton_RK2.clicked.connect(self.mostrar_RK2)
+        self.boton_RK3.clicked.connect(self.mostrar_RK3)
+
 
 
 
@@ -46,7 +54,10 @@ class MyApp(QtWidgets.QMainWindow, Ui_Dialog):
         mostrar_acumulado = False
         if self.checkBox.checkState():
             mostrar_acumulado = True
-        vector, estadisticas, largo_maximo_ant, largo_maximo_inm = principal(cant_dias,mostrar_desde, lambda_cercania, lambda_interp, lambda_ant, lambda_maq, lambda_critica, uniforme_min, uniforme_max, uniforme_min_enc, uniforme_max_enc, mostrar_acumulado)
+        vector, estadisticas, largo_maximo_ant, largo_maximo_inm, vector_rk1, vector_rk2, vector_rk3 = principal(cant_dias,mostrar_desde, lambda_cercania, lambda_interp, lambda_ant, lambda_maq, lambda_critica, uniforme_min, uniforme_max, uniforme_min_enc, uniforme_max_enc, mostrar_acumulado)
+        self.vector_rk1 = vector_rk1
+        self.vector_rk2 = vector_rk2
+        self.vector_rk3 = vector_rk3
         self.tabla.setColumnCount(38 + largo_maximo_ant + largo_maximo_inm)
         self.tabla.setRowCount(len(vector))
 
@@ -100,6 +111,37 @@ class MyApp(QtWidgets.QMainWindow, Ui_Dialog):
         self.porc_no_atend.setText(str(round(estadisticas[1],2)))
         self.porc_encuesta.setText(str(round(estadisticas[2], 2)))
         self.prom_t_cola.setText(str(round(estadisticas[3], 2)))
+
+    def mostrar_RK1(self):
+        self.ventana1 = QtWidgets.QWidget()
+        self.ui = Ui_ventana_RK1()
+        self.ui.setupUi(self.ventana1, self.vector_rk1)
+
+
+
+
+
+
+        self.ventana1.show()
+
+    def mostrar_RK2(self):
+        self.ventana2 = QtWidgets.QWidget()
+        self.ui = Ui_ventana_RK2()
+        self.ui.setupUi(self.ventana2, self.vector_rk2)
+
+
+
+        self.ventana2.show()
+
+    def mostrar_RK3(self):
+        self.ventana3 = QtWidgets.QWidget()
+        self.ui = Ui_ventana_RK3()
+        self.ui.setupUi(self.ventana3,self.vector_rk3)
+
+
+
+        self.ventana3.show()
+
 
 
 
