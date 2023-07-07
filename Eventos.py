@@ -5,6 +5,8 @@ from Rugen_Kutta import *
 from Detenciones import *
 # esto es un comentario
 # Falta agregar el t acum de sistema al fin de maquina y paciencia
+global t_rk1
+t_rk1 = 1
 
 from Fila import *
 def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_ant, lambda_maq, lambda_critica, uniforme_min, uniforme_max,uniforme_min_enc, uniforme_max_enc, mostrar_acmulado):
@@ -29,8 +31,7 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
     global vector_rk1
     global vector_rk2
     global vector_rk3
-    global t_rk1
-    t_rk1 = 1
+
 
     tiempo_rk1, vector_rk1 = runge_kutta_1(0.2,50, 0.1)
     tiempo_rk2, vector_rk2 = runge_kutta_2(30, 0.1)
@@ -126,6 +127,7 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
 def proxima_fila(fila_anterior):
     fa = fila_anterior
     cantidad_llegadas = 0
+    t_rk1 = 1
 
     # Cargo los tiempos dellegada a la fila de
     primero_cola_inm = 499999999
@@ -174,7 +176,7 @@ def proxima_fila(fila_anterior):
         cantidad_llegadas += 1
         if cantidad_llegadas == 150:
             beta = random.random()
-            global t_rk1
+
             t_rk1, vector_rk1 = runge_kutta_1(beta,fila.reloj,0.1)
             fila.h_prox_detencion = copy.copy(fila.reloj + t_rk1)
 
