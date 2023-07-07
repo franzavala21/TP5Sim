@@ -8,6 +8,7 @@ from Detenciones import *
 global t_rk1
 t_rk1 = 1
 
+
 from Fila import *
 def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_ant, lambda_maq, lambda_critica, uniforme_min, uniforme_max,uniforme_min_enc, uniforme_max_enc, mostrar_acmulado):
     global lambda_cercania1
@@ -64,7 +65,8 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
         fila_anterior = copy.deepcopy(fila)
         vec_filas += (fila_inicial,)
 
-        while fila.reloj < 1440 or(len(fila.cola_ant) > 0 or len(fila.cola_inm) > 0):
+        #while fila.reloj < 1440 or(len(fila.cola_ant) > 0 or len(fila.cola_inm) > 0):
+        for w in range(900):
 
             fila = copy.deepcopy(proxima_fila(fila_anterior))
 
@@ -126,7 +128,7 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
 
 def proxima_fila(fila_anterior):
     fa = fila_anterior
-    cantidad_llegadas = 0
+
     t_rk1 = 1
 
     # Cargo los tiempos dellegada a la fila de
@@ -173,12 +175,14 @@ def proxima_fila(fila_anterior):
 
         fila = llegada(fila_anterior)
         fila.cant_entraron += 1
-        cantidad_llegadas += 1
-        if cantidad_llegadas == 150:
+
+
+        if fila.cant_entraron == 150:
             beta = random.random()
 
             t_rk1, vector_rk1 = runge_kutta_1(beta,fila.reloj,0.1)
             fila.h_prox_detencion = copy.copy(fila.reloj + t_rk1)
+
 
 
     elif siguiente_evento == 1:
@@ -216,13 +220,18 @@ def proxima_fila(fila_anterior):
         fila.cantidad_salieron += 1
         fila.promedio_t_sistema = fila.t_acum_sistema / fila.cantidad_salieron
         fila.evento = "fin atencion maq"
-        print(fila_anterior.cola_inm)
+
 
 
     elif siguiente_evento == 6 or siguiente_evento == 7:
 
         if siguiente_evento == 6:
-            fila = fin_paciencia(fila_anterior,1)
+
+            if fila_anterior.cola_ant[0][0] == "C":
+                fila = fin_paciencia(fila_anterior, 0)
+            else:
+                fila = fin_paciencia(fila_anterior, 1)
+
         else:
             fila = fin_paciencia(fila_anterior, 2)
 
@@ -237,7 +246,7 @@ def proxima_fila(fila_anterior):
         fila.reloj = fila_anterior.h_prox_detencion
         fila.rnd_tipo_detencion = random.random()
 
-        if fila.rnd_tipo_detencion < 35:
+        if fila.rnd_tipo_detencion < 0.01: # CAMBIAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
             # DETENCION LLEGADA
             pass
 
@@ -249,13 +258,16 @@ def proxima_fila(fila_anterior):
 
 
     elif siguiente_evento == 9:
-        fila = fin_detencion_atencion(fila_anterior)
-        fila.h_prox_detencion = copy.copy(fila.reloj + t_rk1)
         print("Fin Detencion Llegada")
+        fila = fila_anterior
+        # Cambiar estado de ventanilla a Libre o Ocupado
 
     elif siguiente_evento == 10:
         print("Fin Detencion Vantanilla")
-        # Cambiar estado de ventanilla a Libre o Ocupado
+
+        fila = fin_detencion_atencion(fila_anterior)
+        fila.h_prox_detencion = copy.copy(fila.reloj + t_rk1)
+
 
 
 
@@ -418,7 +430,8 @@ def fin_atencion_anticipada(fila_anterior):
                 fila.cantidad_ant -= 1
                 #tipo_atencion = fila.cola_ant[i][1]
                 pos = i
-                fila = inicio_atencion_ant(fila, pos)
+
+                fila = inicio_atencionn_ant(fila, pos)
                 fila.cola_ant[pos][0] = 'SA'
                 break
 
@@ -681,7 +694,8 @@ def inicio_atencion_maquina(pos_cola, fila):
     fila.h_atenc_maq = fila.reloj + fila.t_atenc_maq
     return fila
 
-def inicio_atencion_ant(fila, pos_fila):
+def inicio_atencionn_ant(fila, pos_fila):
+
     fila.cola_inm = copy.copy(fila.cola_inm)
     fila.cola_ant = copy.copy(fila.cola_ant)
     fila.rnd_t_antenc_ant, fila.t_atenc_ant = gen_exponencial(lambda_ant1)
@@ -728,9 +742,39 @@ def atender_ant_o_cola(fila, pos_cola):
     if fila.est_vent_ant == "Libre":
         fila.est_vent_ant = "Atendiendo"
         fila.cola_ant[pos_cola][0] = "SA"
-        fila = inicio_atencion_ant(fila, pos_cola)
+        fila = inicio_atencionn_ant(fila, pos_cola)
 
     else:
         fila.cola_ant[pos_cola][0] = "C"
         fila.cantidad_ant += 1
+    return fila
+
+
+def fin_detencion_atencion(fila_anterior):
+    fila = copy.deepcopy(fila_anterior)
+    fila.reloj = copy.copy(fila_anterior.h_fin_detencion_vent)
+    fila.evento = "Fin de detención de servidor"
+    fila.h_fin_detencion_vent = None
+
+    if fila.h_atenc_ant == None:
+
+        if fila_anterior.cantidad_ant > 0:
+            for i in range(len(fila.cola_ant)):
+                if fila.cola_ant[i][0] == 'C':
+                    fila.cantidad_ant -= 1
+                    # tipo_atencion = fila.cola_ant[i][1]
+                    pos = i
+
+
+                    fila = copy.deepcopy(inicio_atencionn_ant(fila, pos))
+                    fila.est_vent_ant = "Ocupado"
+                    fila.cola_ant[pos][0] = 'SA'
+                    break
+
+        else:
+            fila.est_vent_ant = "Libre"
+    else:
+        fila.est_vent_ant = "Ocupado"
+
+
     return fila

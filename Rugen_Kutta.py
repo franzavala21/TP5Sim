@@ -40,7 +40,7 @@ def runge_kutta_1(beta, a, h):
     while fila[1] < 3*a:
         fila = copy.deepcopy(cargar_r_k(fila,h,beta,  1))
         vec_rk.append(fila)
-    tiempo_real = vec_rk[-1][1] * 30
+    tiempo_real = vec_rk[-1][0] * 5
     return tiempo_real, vec_rk
 
 def runge_kutta_2(t_0, h):
@@ -62,7 +62,7 @@ def runge_kutta_2(t_0, h):
         if (abs(fila_nueva[1] - fila[1])) < 1:
            break
 
-    tiempo_real = vec_rk[-1][1] * 27
+    tiempo_real = vec_rk[-1][0] * 27
     return tiempo_real, vec_rk
 
 
@@ -76,6 +76,6 @@ def runge_kutta_3(t_0, h):
         fila = copy.deepcopy(cargar_r_k(fila,h,beta,  3))
         vec_rk.append(fila)
 
-    tiempo_real = vec_rk[-1][1] * 8
+    tiempo_real = vec_rk[-1][0] * 8
     return tiempo_real, vec_rk
 
