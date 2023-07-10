@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="columnCount">
-     <number>46</number>
+     <number>57</number>
     </property>
     <attribute name="horizontalHeaderDefaultSectionSize">
      <number>170</number>
@@ -37,6 +37,11 @@
     <column>
      <property name="text">
       <string>Evento</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Estado LL</string>
      </property>
     </column>
     <column>
@@ -204,6 +209,36 @@
       <string>Cant salieron</string>
      </property>
     </column>
+    <column>
+     <property name="text">
+      <string>H prox deten</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>RND Tipo Det</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Tipo det</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>H fin det LL</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>H fin det Vent</string>
+     </property>
+    </column>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
     <column/>
     <column/>
     <column/>

@@ -6,7 +6,7 @@ class Fila():
                  t_atenc_maq = None,h_atenc_maq = None,est_vent_ant = None,rnd_t_antenc_ant = None,t_atenc_ant = None,
                  h_atenc_ant = None,cantidad_ant = None, cantidad_inm = None,cantidad_fin_paciencia = None, porcentaje_fin_paciencia = None,
                  cantidad_encuesta = None, porcentaje_encuesta = None, t_acum_sistema = 0, promedio_t_sistema = None, cantidad_salieron = None,
-                 cant_entraron = None, h_prox_detencion = None , rnd_tipo_detencion = None, tipo_detencion = None,
+                 cant_entraron = None, beta = None, h_prox_detencion = None , rnd_tipo_detencion = None, tipo_detencion = None,
                  h_fin_detencion_ll = None,h_fin_detencion_vent = None , cola_ll = [], cola_ant = [], cola_inm = []):
         self.reloj = reloj
         self.evento = evento
@@ -44,6 +44,7 @@ class Fila():
         self.cant_entraron = cant_entraron
         self.cantidad_salieron = cantidad_salieron
         self.est_ll = est_ll
+        self.beta = beta
         self.h_prox_detencion = h_prox_detencion
         self.rnd_tipo_detencion = rnd_tipo_detencion
         self.tipo_detencion = tipo_detencion
