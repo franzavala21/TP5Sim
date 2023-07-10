@@ -51,10 +51,13 @@ class MyApp(QtWidgets.QMainWindow, Ui_Dialog):
         uniforme_max = float(self.uniforme_max.text())
         uniforme_min_enc = float(self.uniforme_min_enc.text())
         uniforme_max_enc = float(self.uniforme_max_enc.text())
+        multiplicador_rk1 = float(self.multiplicador_rk1.text())
+        multiplicador_rk2 = float(self.multiplicador_rk2.text())
+        multiplicador_rk3 = float(self.multiplicador_rk3.text())
         mostrar_acumulado = False
         if self.checkBox.checkState():
             mostrar_acumulado = True
-        vector, estadisticas, largo_maximo_ant, largo_maximo_inm, largo_maximo_ll, vector_rk1, vector_rk2, vector_rk3 = principal(cant_dias,mostrar_desde, lambda_cercania, lambda_interp, lambda_ant, lambda_maq, lambda_critica, uniforme_min, uniforme_max, uniforme_min_enc, uniforme_max_enc, mostrar_acumulado)
+        vector, estadisticas, largo_maximo_ant, largo_maximo_inm, largo_maximo_ll, vector_rk1, vector_rk2, vector_rk3 = principal(cant_dias,mostrar_desde, lambda_cercania, lambda_interp, lambda_ant, lambda_maq, lambda_critica, uniforme_min, uniforme_max, uniforme_min_enc, uniforme_max_enc, mostrar_acumulado, multiplicador_rk1, multiplicador_rk2, multiplicador_rk3)
         self.vector_rk1 = vector_rk1
         self.vector_rk2 = vector_rk2
         self.vector_rk3 = vector_rk3
@@ -64,7 +67,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_Dialog):
         self.cargarTabla(vector, largo_maximo_ant, largo_maximo_inm)
         self.cargarEstadisticas(estadisticas)
     def cargarTabla(self, vec_sim, largo_maximo, largo_maximo_inm):
-        largo_linea = 43
+        largo_linea = 44
         i = 0
         for linea in vec_sim:
             linea_como_lista = [linea.reloj, linea.evento,linea.est_ll, linea.rnd_ll, linea.t_ll, linea.h_ll, linea.rnd_tipo,
@@ -79,7 +82,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_Dialog):
                                 linea.porcentaje_fin_paciencia,
                                 linea.cantidad_encuesta, linea.porcentaje_encuesta, linea.t_acum_sistema,
                                 linea.promedio_t_sistema,
-                                linea.cant_entraron, linea.cantidad_salieron, linea.h_prox_detencion,
+                                linea.cant_entraron, linea.cantidad_salieron,linea.beta, linea.h_prox_detencion,
                                 linea.rnd_tipo_detencion, linea.tipo_detencion, linea.h_fin_detencion_ll,
                                 linea.h_fin_detencion_vent]
             for j in range(largo_linea-2):
@@ -98,13 +101,13 @@ class MyApp(QtWidgets.QMainWindow, Ui_Dialog):
 
 
             # Mostrar cola
-            columna = 42
+            columna = 43
             for k in range(len(linea.cola_ant)):
                 texto = f"{linea.cola_ant[k][0]} | {linea.cola_ant[k][1]} | {round(linea.cola_ant[k][2],2)}"
                 self.tabla.setItem(i, columna, QtWidgets.QTableWidgetItem(texto))
                 columna += 1
 
-            columna = 42 + largo_maximo
+            columna = 43 + largo_maximo
             texto = "XXXXXXXX"
             self.tabla.setItem(i, columna, QtWidgets.QTableWidgetItem(texto))
             columna += 1
@@ -114,7 +117,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_Dialog):
                 self.tabla.setItem(i, columna, QtWidgets.QTableWidgetItem(texto))
                 columna += 1
 
-            columna = 42 + largo_maximo + largo_maximo_inm
+            columna = 43 + largo_maximo + largo_maximo_inm
             texto = "XXXXXXXX"
             self.tabla.setItem(i, columna, QtWidgets.QTableWidgetItem(texto))
             columna += 1

@@ -18,13 +18,13 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>250</y>
+      <y>300</y>
       <width>1771</width>
-      <height>651</height>
+      <height>601</height>
      </rect>
     </property>
     <property name="columnCount">
-     <number>57</number>
+     <number>58</number>
     </property>
     <attribute name="horizontalHeaderDefaultSectionSize">
      <number>170</number>
@@ -207,6 +207,11 @@
     <column>
      <property name="text">
       <string>Cant salieron</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Beta</string>
      </property>
     </column>
     <column>
@@ -734,8 +739,8 @@
    <widget class="QPushButton" name="boton_RK1">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>180</y>
+      <x>370</x>
+      <y>190</y>
       <width>211</width>
       <height>51</height>
      </rect>
@@ -752,7 +757,7 @@
    <widget class="QPushButton" name="boton_RK2">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>800</x>
       <y>180</y>
       <width>211</width>
       <height>51</height>
@@ -770,7 +775,7 @@
    <widget class="QPushButton" name="boton_RK3">
     <property name="geometry">
      <rect>
-      <x>1030</x>
+      <x>1210</x>
       <y>180</y>
       <width>211</width>
       <height>51</height>
@@ -783,6 +788,99 @@
     </property>
     <property name="text">
      <string>R K 3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>240</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Multiplicador tiempo RK1</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="multiplicador_rk1">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>250</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="multiplicador_rk2">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>250</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>27</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_16">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>240</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Multiplicador tiempo RK2</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="multiplicador_rk3">
+    <property name="geometry">
+     <rect>
+      <x>1360</x>
+      <y>250</y>
+      <width>113</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>1160</x>
+      <y>240</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Multiplicador tiempo RK3</string>
     </property>
    </widget>
   </widget>

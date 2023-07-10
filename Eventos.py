@@ -10,7 +10,7 @@ from Detenciones import *
 
 
 from Fila import *
-def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_ant, lambda_maq, lambda_critica, uniforme_min, uniforme_max,uniforme_min_enc, uniforme_max_enc, mostrar_acmulado):
+def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_ant, lambda_maq, lambda_critica, uniforme_min, uniforme_max,uniforme_min_enc, uniforme_max_enc, mostrar_acmulado, multiplicador_rk1, multiplicador_rk2, multiplicador_rk3):
     global lambda_cercania1
     lambda_cercania1 = lambda_cercania
     global lambda_interp1
@@ -68,15 +68,18 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
         vector_rk1_real, vector_rk2_real, vector_rk3_real = [], [], []
         while fila.reloj < 1440 or(len(fila.cola_ant) > 0 or len(fila.cola_inm) > 0):
 
-            fila, t_150, vector_rk1, vector_rk2, vector_rk3 = copy.deepcopy(proxima_fila(fila_anterior, t_150))
+            fila, t_150, vector_rk1, vector_rk2, vector_rk3 = copy.deepcopy(proxima_fila(fila_anterior, t_150, multiplicador_rk1, multiplicador_rk2, multiplicador_rk3))
             if len(vector_rk1) > 0:
-                vector_rk1_real = vector_rk1
+                vector_rk1_real += [[0,0,0,0,0,0,0,0,0,0,0,0,0]]
+                vector_rk1_real += vector_rk1
 
             if len(vector_rk2) > 0:
-                vector_rk2_real = vector_rk2
+                vector_rk2_real += [[0,0,0,0,0,0,0,0,0,0,0,0,0]]
+                vector_rk2_real += vector_rk2
 
             if len(vector_rk3) > 0:
-                vector_rk3_real = vector_rk3
+                vector_rk3_real += [[0,0,0,0,0,0,0,0,0,0,0,0,0]]
+                vector_rk3_real += vector_rk3
 
 
             fila_anterior = copy.deepcopy(fila)
@@ -137,7 +140,7 @@ def principal(cant_dias, mostrar_desde,lambda_cercania, lambda_interp, lambda_an
 
 
 
-def proxima_fila(fila_anterior, t_150):
+def proxima_fila(fila_anterior, t_150, multiplicador_rk1, multiplicador_rk2, multiplicador_rk3):
     fa = fila_anterior
     vector_rk1, vector_rk2, vector_rk3 = [], [] , []
 
@@ -194,7 +197,8 @@ def proxima_fila(fila_anterior, t_150):
         if fila.cant_entraron == 150 and fila.evento == "Llegada":
             t_150 = copy.copy(fila.reloj)
             beta = random.random()
-            t_rk1, vector_rk1 = runge_kutta_1(beta, t_150, 0.1)
+            fila.beta = beta
+            t_rk1, vector_rk1 = runge_kutta_1(beta, t_150, 0.1, multiplicador_rk1)
 
             fila.h_prox_detencion = copy.copy(fila.reloj + t_rk1)
 
@@ -270,7 +274,7 @@ def proxima_fila(fila_anterior, t_150):
         if fila.rnd_tipo_detencion < 0.35: # CAMBIAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
             fila.est_ll = "Detenido"
             fila.h_prox_detencion = None
-            tiempo_real, vector_rk2 = runge_kutta_2(fila.reloj,0.1)
+            tiempo_real, vector_rk2 = runge_kutta_2(fila.reloj,0.1, multiplicador_rk2)
             fila.h_fin_detencion_ll = copy.copy(tiempo_real + fila.reloj)
             fila.tipo_detencion = "Llegada"
 
@@ -278,7 +282,7 @@ def proxima_fila(fila_anterior, t_150):
 
         else:
 
-            fila, vector_rk3 = detener_atencion(fila_anterior)
+            fila, vector_rk3 = detener_atencion(fila_anterior, multiplicador_rk3)
 
 
 
@@ -287,7 +291,8 @@ def proxima_fila(fila_anterior, t_150):
 
         fila = fin_detencion_llegada(fila_anterior)
         beta = random.random()
-        t_rk1, vector_rk1 = runge_kutta_1(beta, t_150, 0.1)
+        fila.beta = beta
+        t_rk1, vector_rk1 = runge_kutta_1(beta, t_150, 0.1, multiplicador_rk1)
         fila.h_prox_detencion = copy.copy(fila.reloj + t_rk1)
 
 
@@ -296,7 +301,8 @@ def proxima_fila(fila_anterior, t_150):
 
         fila = fin_detencion_atencion(fila_anterior)
         beta = random.random()
-        t_rk1, vector_rk1 = runge_kutta_1(beta, t_150, 0.1)
+        fila.beta = beta
+        t_rk1, vector_rk1 = runge_kutta_1(beta, t_150, 0.1, multiplicador_rk1)
         fila.h_prox_detencion = copy.copy(fila.reloj + t_rk1)
 
 
@@ -712,6 +718,7 @@ def random_a_None(fila):
     fila.t_atenc_ant = None
     fila.t_atenc_maq = None
     fila.rnd_tipo_detencion = None
+    fila.beta = None
     return fila
 
 
