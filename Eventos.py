@@ -272,8 +272,11 @@ def proxima_fila(fila_anterior):
 
     elif siguiente_evento == 9:
         print("Fin Detencion Llegada")
-        fila = fila_anterior
+        # fila = fila_anterior
         # Cambiar estado de ventanilla a Libre o Ocupado
+        fila = fin_detencion_llegada(fila_anterior)
+        # fila.h_prox_detencion
+
 
     elif siguiente_evento == 10:
         print("Fin Detencion Vantanilla")

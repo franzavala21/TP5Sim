@@ -27,7 +27,10 @@ def fin_detencion_llegada(fila_anterior):
     fila.evento = "Fin de detencion de llegadas"
     fila.reloj = fila_anterior.h_fin_detencion_ll
 
+    # cola_ll
     
+
+
 
     
 
