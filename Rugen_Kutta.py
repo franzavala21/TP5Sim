@@ -30,23 +30,40 @@ def cargar_r_k(vec,h,beta,  numero_funcion):
     vec[10] = y + h* vec[8]
     vec[11] = funcion(vec[9],vec[10], beta, numero_funcion) # k4
     vec[12] = y + h/6 * (vec[2] + 2 * vec[5] + 2 * vec[8] + vec[11])
+    #vec[0] = round(vec[0],6)
+    #vec[1] = round(vec[1], 6)
+    #vec[2] = round(vec[2], 6)
+    #vec[3] = round(vec[3], 6)
+    #vec[4] = round(vec[4], 6)
+    #vec[5] = round(vec[5], 6)
+    #vec[6] = round(vec[6], 6)
+    #vec[7] = round(vec[7], 6)
+    #vec[8] = round(vec[8], 6)
+    #vec[9] = round(vec[9], 6)
+    #vec[10] = round(vec[10], 6)
+    #vec[11] = round(vec[11], 6)
+    #vec[12] = round(vec[12], 6)
+
     return vec
 
-def runge_kutta_1(beta, a, h):
+def runge_kutta_1(beta, a, h, multiplicador_rk1):
     fila = [0,0,0,0,0,0,0,0,0,0,0,0,0]
     fila[0] = - h
     fila[12] = a
     vec_rk = []
     while fila[1] < 3*a:
         fila = copy.deepcopy(cargar_r_k(fila,h,beta,  1))
-        vec_rk.append(fila)
-    tiempo_real = vec_rk[-1][0] * 5
+
+        vec_rk.append(copy.deepcopy(fila))
+
+    tiempo_real = vec_rk[-1][0] * multiplicador_rk1
+
     return tiempo_real, vec_rk
 
-def runge_kutta_2(t_0, h):
+def runge_kutta_2(L, h, multiplicador_rk2):
     fila = [0,0,0,0,0,0,0,0,0,0,0,0,0]
     fila[0] = 0
-    fila[12] = t_0
+    fila[12] = L
     vec_rk = []
     beta = 0
     fila_nueva = copy.deepcopy(fila)
@@ -62,11 +79,11 @@ def runge_kutta_2(t_0, h):
         if (abs(fila_nueva[1] - fila[1])) < 1:
            break
 
-    tiempo_real = vec_rk[-1][0] * 27
+    tiempo_real = vec_rk[-1][0] * multiplicador_rk2
     return tiempo_real, vec_rk
 
 
-def runge_kutta_3(t_0, h):
+def runge_kutta_3(t_0, h, multiplicador_rk3):
     fila = [0,0,0,0,0,0,0,0,0,0,0,0,0]
     fila[0] = - h
     fila[12] = t_0
@@ -74,8 +91,11 @@ def runge_kutta_3(t_0, h):
     beta = 0
     while fila[1] < 1.5 * t_0:
         fila = copy.deepcopy(cargar_r_k(fila,h,beta,  3))
-        vec_rk.append(fila)
+        vec_rk.append(copy.deepcopy(fila))
 
-    tiempo_real = vec_rk[-1][0] * 8
+    tiempo_real = vec_rk[-1][0] * multiplicador_rk3
     return tiempo_real, vec_rk
+# multiplicadores  5, 27, 8
 
+if __name__ == "__main__":
+    runge_kutta_1(0.5, 450, 0.1)

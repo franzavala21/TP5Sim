@@ -50,7 +50,7 @@ class Ui_ventana_RK1(object):
 
         self.tabla1.setRowCount(len(vector_rk1))
         self.tabla1.setColumnCount(7)
-        print(vector_rk1)
+
         for i in range(len(vector_rk1)):
             for i in range(len(vector_rk1)):
                 self.tabla1.setItem(i, 0, QtWidgets.QTableWidgetItem(str(vector_rk1[i][0])))
